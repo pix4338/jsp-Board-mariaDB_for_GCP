@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+<!--파일명 뒤에다가 적어줘야 한다 그래야 적용이 된다.-->
+<!---link href="style.css?after" rel="stylesheet" type="text/css">적어줘야한다.-->
+body {
+	font-size: 9pt; 
+	text-align: center;
+}
+
+table {
+	font-size: 9pt;
+	text-align: center;
+	border: 1pt solid blakc;
+}
+
+select {
+	font-size: 9pt; 
+}
+
+form {
+	font-size: 9pt; 
+}
+
+p{
+	font-weight: 700;
+}

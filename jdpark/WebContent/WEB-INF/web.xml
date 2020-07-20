@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>ch13</display-name>
+  <welcome-file-list><!--특정페이지 지정 안했을때 기본으로 뜬다.CONTEXT ROOT 변경할수 있다.-->
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <resource-ref><!-- DB랑 연결 되기 위해 쓴다. -->
+	<description>ojdbc connection pool</description>
+	<res-ref-name>jdbc/oracledb</res-ref-name>
+	<res-type>javax.sql.DataSource</res-type><!-- 마리아디비 바꾸기 -->
+	<res-auth>Container</res-auth>
+  </resource-ref>
+  <!-- error-page--> <!-- 404에러가 발생을 한다면 이페이지를 보여줘라 -->
+  <!-- error-code>404</error-code>
+  <location>/error/404code.jsp</location>
+  </error-page>
+    <error-page>
+  <error-code>500</error-code>
+  <location>/error/500code.jsp</location>
+  </error-page> -->
+</web-app>

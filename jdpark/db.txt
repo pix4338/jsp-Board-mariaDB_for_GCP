@@ -1,0 +1,55 @@
+public List<BoardDataBean> getArticles(int start,int end)
+			throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<BoardDataBean> articleList=null;
+		try{
+			conn = getConnection();
+			//String sql ="SELECT * "
+			//		+"FROM (SELECT ROWNUM rnum, num, writer, email, subject, passwd,"
+			//		+"reg_date, readcount, ref,re_step,re_level,content,ip"
+			//		+"FROM( SELECT * FROM BOARDE ORDER BY ref desc, re_step asc) BOARDE)";
+			//sql +="WHERE rnum >= ? and rnum <= ?";
+			
+		
+			String sql ="SELECT * "
+			+"FROM (SELECT ROWNUM rnum,B.* FROM "
+			+"( SELECT * FROM BOARDE ORDER BY ref desc, re_step asc ) B )";
+			sql+="WHERE rnum >=? and rnum <= ?";
+			//RNUM생성시키자 마자 WHERE문이 안되기 때문에 1번더 SELECT FORM을 더 해준다.
+			//"SELECT * "
+			//+"FROM (SELECT ROWNUM rnum,B.* FROM "
+			//+" BOARDE B;
+			//sql+="WHERE rnum >=? and rnum <= ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,start);
+			pstmt.setInt(2,end);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				articleList = new ArrayList<BoardDataBean>(end);
+				do {
+					BoardDataBean article = new BoardDataBean();
+					article.setNum(rs.getInt("num"));
+					article.setWriter(rs.getString("writer"));
+					article.setEmail(rs.getString("email"));
+					article.setSubject(rs.getString("subject"));
+					article.setPasswd(rs.getString("passwd"));
+					article.setReg_date(rs.getTimestamp("reg_date"));
+					article.setReadcount(rs.getInt("readcount"));
+					article.setRef(rs.getInt("ref"));
+					article.setRe_step(rs.getInt("re_step"));
+					article.setRe_level(rs.getInt("re_level"));
+					article.setContent(rs.getString("content"));
+					article.setIp(rs.getString("ip"));
+				      article.setFileName(rs.getString("filename"));
+					articleList.add(article);
+				}while(rs.next());}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			closeDBRecources(rs, pstmt, conn);
+		}
+		return articleList;
+	}
